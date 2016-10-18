@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addcontact.AddContactActivity"></activity>
+        <activity android:name=".addcontact.ui.AddContactActivity"></activity>
     </application>
 
 </manifest>

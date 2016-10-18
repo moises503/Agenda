@@ -1,4 +1,4 @@
-package com.xor503.agenda.addcontact;
+package com.xor503.agenda.addcontact.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddContactActivity extends AppCompatActivity {
+public class AddContactActivity extends AppCompatActivity implements AddContactView{
 
     @BindView(R.id.txtName)
     EditText txtName;
@@ -46,5 +46,15 @@ public class AddContactActivity extends AppCompatActivity {
         contact.setFb(txtFb.getText().toString());
         contact.setTweet(txtTweet.getText().toString());
         contact.save();
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void cleanElements() {
+
     }
 }

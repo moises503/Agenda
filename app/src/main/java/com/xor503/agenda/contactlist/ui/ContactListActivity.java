@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import com.xor503.agenda.DiaryApp;
 import com.xor503.agenda.R;
-import com.xor503.agenda.addcontact.AddContactActivity;
+import com.xor503.agenda.addcontact.ui.AddContactActivity;
 import com.xor503.agenda.contactlist.ContactListPresenter;
 import com.xor503.agenda.contactlist.di.ContactListComponent;
 import com.xor503.agenda.contactlist.ui.adapters.ContactListAdapter;
