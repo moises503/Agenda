@@ -1,5 +1,8 @@
 package com.xor503.agenda.contactlist.ui.adapters;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xor503.agenda.R;
+import com.xor503.agenda.contactlist.ui.ContactListActivity;
 import com.xor503.agenda.entities.Contact;
+import com.xor503.agenda.showcontact.ShowContactActivity;
 
 import java.util.List;
 
@@ -23,12 +28,13 @@ import butterknife.ButterKnife;
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder>{
     private List<Contact> contactList;
     private OnItemClickListener onItemClickListener;
+    private ContactListActivity activity;
 
 
-
-    public ContactListAdapter(List<Contact> contactList, OnItemClickListener onItemClickListener) {
+    public ContactListAdapter(List<Contact> contactList, OnItemClickListener onItemClickListener, ContactListActivity activity) {
         this.contactList = contactList;
         this.onItemClickListener = onItemClickListener;
+        this.activity = activity;
     }
 
     @Override
@@ -58,6 +64,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     @Override
     public int getItemCount() {
         return contactList.size();
+    }
+
+    public void showContact(Contact contact) {
+        ShowContactActivity.createInstance(activity, contact);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{

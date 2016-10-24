@@ -8,6 +8,7 @@ import com.xor503.agenda.contactlist.ContactListRepository;
 import com.xor503.agenda.contactlist.ContactListRepositoryImpl;
 import com.xor503.agenda.contactlist.StoredContactInteractor;
 import com.xor503.agenda.contactlist.StoredContactInteractorImpl;
+import com.xor503.agenda.contactlist.ui.ContactListActivity;
 import com.xor503.agenda.contactlist.ui.ContactListView;
 import com.xor503.agenda.contactlist.ui.adapters.ContactListAdapter;
 import com.xor503.agenda.contactlist.ui.adapters.OnItemClickListener;
@@ -29,10 +30,12 @@ import dagger.Provides;
 public class ContactListModule {
     ContactListView view;
     OnItemClickListener clickListener;
+    ContactListActivity activity;
 
-    public ContactListModule(ContactListView view, OnItemClickListener clickListener) {
+    public ContactListModule(ContactListView view, OnItemClickListener clickListener, ContactListActivity activity) {
         this.view = view;
         this.clickListener = clickListener;
+        this.activity = activity;
     }
 
     @Provides @Singleton
@@ -61,8 +64,12 @@ public class ContactListModule {
     }
 
     @Provides @Singleton
-    ContactListAdapter providesContactListAdapter(List<Contact> contactList, OnItemClickListener onItemClickListener){
-        return new ContactListAdapter(contactList, onItemClickListener);
+    ContactListAdapter providesContactListAdapter(ContactListActivity activity, List<Contact> contactList, OnItemClickListener onItemClickListener){
+        return new ContactListAdapter(contactList, onItemClickListener, activity);
+    }
+    @Provides @Singleton
+    ContactListActivity providesContactListActivity(){
+        return this.activity;
     }
 
     @Provides @Singleton

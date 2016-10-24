@@ -8,11 +8,13 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.xor503.agenda.db.ContactsDatabase;
 
+import java.io.Serializable;
+
 /**
  * Created by xor503 on 10/13/16.
  */
 @Table(database = ContactsDatabase.class)
-public class Contact extends BaseModel{
+public class Contact extends BaseModel implements Serializable{
     @PrimaryKey(autoincrement = true) private long id;
     @Column private String name;
     @Column(name = "last_name") private String lastName;

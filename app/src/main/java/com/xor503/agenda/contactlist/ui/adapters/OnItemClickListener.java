@@ -1,5 +1,7 @@
 package com.xor503.agenda.contactlist.ui.adapters;
 
+import android.app.Activity;
+
 import com.xor503.agenda.entities.Contact;
 
 /**

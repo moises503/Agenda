@@ -7,6 +7,7 @@ import com.xor503.agenda.entities.Contact;
  */
 
 public interface AddContactView {
-    void showError(String error);
+    void showError(int beforeResource, boolean beforeResourceEnabled, int currentResource, boolean currentResourceEnabled, int errorResource, String error);
     void cleanElements();
+    void showMessage(String message);
 }

@@ -13,5 +13,5 @@ public interface AddContactPresenter {
     void onDestroy();
     void saveContact(List<String> data);
     void onEventMainThread(AddContactEvent event);
-    void contactError(String error);
+
 }

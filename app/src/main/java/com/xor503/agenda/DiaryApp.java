@@ -4,6 +4,11 @@ import android.app.Application;
 
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.xor503.agenda.addcontact.di.AddContactComponent;
+import com.xor503.agenda.addcontact.di.AddContactModule;
+import com.xor503.agenda.addcontact.di.DaggerAddContactComponent;
+import com.xor503.agenda.addcontact.ui.AddContactActivity;
+import com.xor503.agenda.addcontact.ui.AddContactView;
 import com.xor503.agenda.contactlist.di.ContactListComponent;
 import com.xor503.agenda.contactlist.di.ContactListModule;
 import com.xor503.agenda.contactlist.di.DaggerContactListComponent;
@@ -41,7 +46,15 @@ public class DiaryApp extends Application {
         return DaggerContactListComponent
                 .builder()
                 .libsModule(new LibsModule(activity))
-                .contactListModule(new ContactListModule(view, listener))
+                .contactListModule(new ContactListModule(view, listener, activity))
+                .build();
+    }
+
+    public AddContactComponent getAddContactComponent(AddContactActivity activity, AddContactView view){
+        return DaggerAddContactComponent
+                .builder()
+                .libsModule(new LibsModule(activity))
+                .addContactModule(new AddContactModule(view))
                 .build();
     }
 

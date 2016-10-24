@@ -1,5 +1,7 @@
 package com.xor503.agenda.contactlist.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -109,7 +111,7 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
 
     @Override
     public void onShowClick(Contact contact) {
-
+        adapter.showContact(contact);
     }
 
     @Override
