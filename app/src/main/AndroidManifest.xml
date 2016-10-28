@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xor503.agenda">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:name=".DiaryApp"
         android:allowBackup="true"
@@ -20,8 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".addcontact.ui.AddContactActivity" />
-        <activity android:name=".showcontact.ui.ShowContactActivity" />
-        <activity android:name=".showcontact.ShowContactActivity"></activity>
+        <activity android:name=".showcontact.ShowContactActivity" />
+        <activity android:name=".updatecontact.ui.UpdateContactActivity"></activity>
     </application>
 
 </manifest>

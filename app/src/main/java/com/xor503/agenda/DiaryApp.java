@@ -16,6 +16,11 @@ import com.xor503.agenda.contactlist.ui.ContactListActivity;
 import com.xor503.agenda.contactlist.ui.ContactListView;
 import com.xor503.agenda.contactlist.ui.adapters.OnItemClickListener;
 import com.xor503.agenda.libs.di.LibsModule;
+import com.xor503.agenda.updatecontact.di.DaggerUpdateContactComponent;
+import com.xor503.agenda.updatecontact.di.UpdateContactComponent;
+import com.xor503.agenda.updatecontact.di.UpdateContactModule;
+import com.xor503.agenda.updatecontact.ui.UpdateContactActivity;
+import com.xor503.agenda.updatecontact.ui.UpdateContactView;
 
 /**
  * Created by xor503 on 10/13/16.
@@ -58,4 +63,11 @@ public class DiaryApp extends Application {
                 .build();
     }
 
+    public UpdateContactComponent getUpdateContactComponent(UpdateContactActivity activity, UpdateContactView view){
+        return DaggerUpdateContactComponent
+                .builder()
+                .libsModule(new LibsModule(activity))
+                .updateContactModule(new UpdateContactModule(view))
+                .build();
+    }
 }

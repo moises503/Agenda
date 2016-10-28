@@ -1,20 +1,24 @@
-package com.xor503.agenda.addcontact.ui;
+package com.xor503.agenda.updatecontact.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.xor503.agenda.DiaryApp;
 import com.xor503.agenda.R;
-import com.xor503.agenda.addcontact.AddContactPresenter;
-import com.xor503.agenda.addcontact.di.AddContactComponent;
-import com.xor503.agenda.contactlist.ui.ContactListActivity;
+import com.xor503.agenda.entities.Contact;
+import com.xor503.agenda.updatecontact.UpdateContactPresenter;
+import com.xor503.agenda.updatecontact.di.UpdateContactComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +27,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddContactActivity extends AppCompatActivity implements AddContactView {
+public class UpdateContactActivity extends AppCompatActivity implements UpdateContactView {
 
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.txtName)
     TextInputEditText txtName;
     @BindView(R.id.layoutName)
@@ -50,27 +55,35 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
     TextInputEditText txtTweet;
     @BindView(R.id.layoutTweet)
     TextInputLayout layoutTweet;
-    @BindView(R.id.btnAddContact)
-    Button btnAddContact;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.image_paralax)
+    ImageView imageParalax;
+    @BindView(R.id.collapser)
+    CollapsingToolbarLayout collapser;
+    @BindView(R.id.app_bar)
+    AppBarLayout appBar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.btnUpdateContact)
+    Button btnUpdateContact;
     @BindView(R.id.content_main)
     RelativeLayout contentMain;
-    private AddContactPresenter presenter;
-    private AddContactComponent component;
+
+
+    private UpdateContactComponent component;
+    private UpdateContactPresenter presenter;
+    private Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_contact);
+        setContentView(R.layout.activity_update_contact);
         ButterKnife.bind(this);
+        contact = (Contact) getIntent().getExtras().getSerializable("contact");
         setupToolbar();
+        setupCollapsingToolbarLayout();
+        showInfo();
         setupInjection();
         presenter.onCreate();
-    }
-
-    private void setupToolbar() {
-        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -79,25 +92,29 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
         super.onDestroy();
     }
 
-    @OnClick(R.id.btnAddContact)
-    public void onClick() {
-        /*Contact contact = new Contact();
-        contact.setName(txtName.getText().toString());
-        contact.setLastName(txtLastName.getText().toString());
-        contact.setPhone(txtPhone.getText().toString());
-        contact.setEmail(txtEmail.getText().toString());
-        contact.setFb(txtFb.getText().toString());
-        contact.setTweet(txtTweet.getText().toString());
-        contact.save();*/
+    private void setupInjection() {
+        DiaryApp app = (DiaryApp) getApplication();
+        component = app.getUpdateContactComponent(this, this);
+        presenter = getPresenter();
+    }
 
-        List<String> data = new ArrayList<String>();
-        data.add(txtName.getText().toString());
-        data.add(txtLastName.getText().toString());
-        data.add(txtPhone.getText().toString());
-        data.add(txtEmail.getText().toString());
-        data.add(txtFb.getText().toString());
-        data.add(txtTweet.getText().toString());
-        presenter.saveContact(data);
+    private void showInfo() {
+        txtName.setText(contact.getName());
+        txtLastName.setText(contact.getLastName());
+        txtPhone.setText(contact.getPhone());
+        txtEmail.setText(contact.getEmail());
+        txtFb.setText(contact.getFb());
+        txtTweet.setText(contact.getTweet());
+    }
+
+    private void setupCollapsingToolbarLayout() {
+        collapser.setTitle(contact.getName() + " " + contact.getLastName());
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -147,21 +164,27 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showMessage(String message, Contact contact) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, ContactListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
+        Intent intent = new Intent();
+        intent.putExtra("contact", contact);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
-    private void setupInjection() {
-        DiaryApp app = (DiaryApp) getApplication();
-        component = app.getAddContactComponent(this, this);
-        presenter = getPresenter();
+    @OnClick(R.id.btnUpdateContact)
+    public void onClick() {
+        List<String> data = new ArrayList<String>();
+        data.add(txtName.getText().toString());
+        data.add(txtLastName.getText().toString());
+        data.add(txtPhone.getText().toString());
+        data.add(txtEmail.getText().toString());
+        data.add(txtFb.getText().toString());
+        data.add(txtTweet.getText().toString());
+        presenter.updateContact(data, contact);
     }
 
-    public AddContactPresenter getPresenter() {
-        return this.component.getAddContactPresenter();
+    public UpdateContactPresenter getPresenter() {
+        return this.component.getUpdateContactPresenter();
     }
 }
