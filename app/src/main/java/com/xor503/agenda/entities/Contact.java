@@ -22,6 +22,7 @@ public class Contact extends BaseModel implements Serializable{
     @Column private String phone;
     @Column private String fb;
     @Column private String tweet;
+    @Column(name = "image_path") private String imagePath;
 
     public long getId() {
         return id;
@@ -77,5 +78,13 @@ public class Contact extends BaseModel implements Serializable{
 
     public void setTweet(String tweet) {
         this.tweet = tweet;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

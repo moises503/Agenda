@@ -41,6 +41,7 @@ public class AddContactRepositoryImpl implements AddContactRepository{
             contact.setEmail(data.get(3));
             contact.setFb(data.get(4));
             contact.setTweet(data.get(5));
+            contact.setImagePath(data.get(6));
             contact.save();
             post(R.id.layoutTweet, false, 0, false, 0, "");
             post("Contacto agregado correctamente");

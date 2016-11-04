@@ -3,6 +3,9 @@
     package="com.xor503.agenda">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".DiaryApp"
@@ -22,12 +25,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".addcontact.ui.AddContactActivity"
+            android:theme="@style/AppTheme.TranslucentSystemBars"
             android:parentActivityName=".contactlist.ui.ContactListActivity"
             />
         <activity android:name=".showcontact.ShowContactActivity"
+            android:theme="@style/AppTheme.TranslucentSystemBars"
             android:parentActivityName=".contactlist.ui.ContactListActivity"
             />
-        <activity android:name=".updatecontact.ui.UpdateContactActivity"></activity>
+        <activity android:name=".updatecontact.ui.UpdateContactActivity"
+            android:theme="@style/AppTheme.TranslucentSystemBars"
+            android:parentActivityName=".showcontact.ShowContactActivity"
+            ></activity>
     </application>
 
 </manifest>

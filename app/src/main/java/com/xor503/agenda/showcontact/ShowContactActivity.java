@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.xor503.agenda.R;
 import com.xor503.agenda.entities.Contact;
 import com.xor503.agenda.updatecontact.ui.UpdateContactActivity;
@@ -52,6 +53,7 @@ public class ShowContactActivity extends AppCompatActivity {
     @BindView(R.id.showTwitter)
     TextView showTwitter;
 
+
     private Contact contact;
 
     public static void createInstance(Activity activity, Contact contact) {
@@ -82,6 +84,13 @@ public class ShowContactActivity extends AppCompatActivity {
         showEmail.setText(contact.getEmail());
         showFacebook.setText(contact.getFb());
         showTwitter.setText(contact.getTweet());
+        if(contact.getImagePath() != null){
+            if(contact.getImagePath().contains("content")){
+                setImageParalax(Uri.parse(contact.getImagePath()));
+            } else {
+                setImageParalax(contact.getImagePath());
+            }
+        }
     }
 
     private void setupContact() {
@@ -100,25 +109,10 @@ public class ShowContactActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void onUpdateContact() {
-        /*Intent intent = new Intent(this, UpdateContactActivity.class);
+        Intent intent = new Intent(this, UpdateContactActivity.class);
         intent.putExtra("contact",contact);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivityForResult(intent, CONTACT_REQUEST_CODE);*/
-        try {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-
-            }
-            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.getPhone())));
-       }catch (Exception ex){
-            Toast.makeText(getApplicationContext(), "No se pudo lanzar la llamada "+ex.getMessage(), Toast.LENGTH_LONG);
-       }
+        startActivityForResult(intent, CONTACT_REQUEST_CODE);
     }
 
     @Override
@@ -131,5 +125,35 @@ public class ShowContactActivity extends AppCompatActivity {
                 showInfo();
             }
         }
+    }
+
+
+    @OnClick(R.id.callPhone)
+    public void onCallPhone() {
+        try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+
+            }
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.getPhone())));
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(), "No se pudo lanzar la llamada " + ex.getMessage(), Toast.LENGTH_LONG);
+
+        }
+    }
+
+
+    public void setImageParalax(String path) {
+        Glide.with(this).load(path).centerCrop().into(imageParalax);
+    }
+
+    public void setImageParalax(Uri path) {
+        Glide.with(this).load(path).centerCrop().into(imageParalax);
     }
 }

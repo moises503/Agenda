@@ -1,5 +1,6 @@
 package com.xor503.agenda.contactlist.ui.adapters;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.xor503.agenda.R;
 import com.xor503.agenda.contactlist.ui.ContactListActivity;
 import com.xor503.agenda.entities.Contact;
@@ -47,6 +49,19 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Contact currentContact = contactList.get(position);
         holder.showContact.setText(currentContact.getName()+" "+currentContact.getLastName());
+        if(currentContact.getImagePath() != null){
+            if(currentContact.getImagePath().contains("content")){
+                Glide.with(holder.showAvatar.getContext())
+                        .load(Uri.parse(currentContact.getImagePath()))
+                        .centerCrop()
+                        .into(holder.showAvatar);
+            } else {
+                Glide.with(holder.showAvatar.getContext())
+                        .load(currentContact.getImagePath())
+                        .centerCrop()
+                        .into(holder.showAvatar);
+            }
+        }
         holder.setOnItemClickListener(currentContact, onItemClickListener);
     }
 
@@ -74,6 +89,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         CircleImageView showAvatar;
         @BindView(R.id.showContact)
         TextView showContact;
+
 
         private View view;
 
