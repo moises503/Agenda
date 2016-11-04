@@ -1,8 +1,5 @@
 package com.xor503.agenda.contactlist.ui.adapters;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +17,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by xor503 on 10/13/16.
  */
 
-public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder>{
+public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
+
+    TextView showContact;
     private List<Contact> contactList;
     private OnItemClickListener onItemClickListener;
     private ContactListActivity activity;
@@ -46,8 +46,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Contact currentContact = contactList.get(position);
-        holder.txtContactName.setText(currentContact.getName());
-        holder.txtContactPhone.setText(currentContact.getPhone());
+        holder.showContact.setText(currentContact.getName()+" "+currentContact.getLastName());
         holder.setOnItemClickListener(currentContact, onItemClickListener);
     }
 
@@ -70,42 +69,25 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         ShowContactActivity.createInstance(activity, contact);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.imgContact)
-        ImageView imgContact;
-        @BindView(R.id.txtContactName)
-        TextView txtContactName;
-        @BindView(R.id.txtContactPhone)
-        TextView txtContactPhone;
-        @BindView(R.id.imgShow)
-        ImageButton imgShow;
-        @BindView(R.id.imgDelete)
-        ImageButton imgDelete;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.showAvatar)
+        CircleImageView showAvatar;
+        @BindView(R.id.showContact)
+        TextView showContact;
 
         private View view;
+
         public ViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
             ButterKnife.bind(this, view);
         }
 
-        public void setOnItemClickListener(final Contact currentContact, final OnItemClickListener onItemClickListener){
+        public void setOnItemClickListener(final Contact currentContact, final OnItemClickListener onItemClickListener) {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick(currentContact);
-                }
-            });
-            imgShow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
                     onItemClickListener.onShowClick(currentContact);
-                }
-            });
-            imgDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onDeleteClick(currentContact);
                 }
             });
         }

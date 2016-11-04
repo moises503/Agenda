@@ -21,8 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addcontact.ui.AddContactActivity" />
-        <activity android:name=".showcontact.ShowContactActivity" />
+        <activity android:name=".addcontact.ui.AddContactActivity"
+            android:parentActivityName=".contactlist.ui.ContactListActivity"
+            />
+        <activity android:name=".showcontact.ShowContactActivity"
+            android:parentActivityName=".contactlist.ui.ContactListActivity"
+            />
         <activity android:name=".updatecontact.ui.UpdateContactActivity"></activity>
     </application>
 

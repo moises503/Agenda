@@ -12,4 +12,5 @@ public interface ContactListView {
     void setContacts(List<Contact> data);
     void contactUpdated();
     void contactDeleted(Contact contact);
+
 }

@@ -2,6 +2,8 @@ package com.xor503.agenda.addcontact.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -54,8 +56,10 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
     Button btnAddContact;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.content_main)
-    RelativeLayout contentMain;
+    @BindView(R.id.collapser)
+    CollapsingToolbarLayout collapser;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
     private AddContactPresenter presenter;
     private AddContactComponent component;
 
@@ -71,6 +75,9 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        collapser.setTitle("Agregar contacto");
     }
 
     @Override
@@ -81,15 +88,6 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
 
     @OnClick(R.id.btnAddContact)
     public void onClick() {
-        /*Contact contact = new Contact();
-        contact.setName(txtName.getText().toString());
-        contact.setLastName(txtLastName.getText().toString());
-        contact.setPhone(txtPhone.getText().toString());
-        contact.setEmail(txtEmail.getText().toString());
-        contact.setFb(txtFb.getText().toString());
-        contact.setTweet(txtTweet.getText().toString());
-        contact.save();*/
-
         List<String> data = new ArrayList<String>();
         data.add(txtName.getText().toString());
         data.add(txtLastName.getText().toString());
@@ -111,6 +109,11 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
                 showBeforeAndCurrent(beforeResource, beforeResourceEnabled, currentResource, currentResourceEnabled, errorResource, error);
             }
         }
+    }
+
+    @OnClick(R.id.addImage)
+    public void onImageAdded(){
+
     }
 
     private void showCurrent(int currentResource, boolean currentResourceEnabled, int errorResource, String error) {
