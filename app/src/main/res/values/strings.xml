@@ -21,4 +21,6 @@
         tristique consectetur, lacus ligula dignissim turpis, cursus commodo turpis
         libero in purus. Phasellus tempus gravida tempor.
     </string>
+    <string name="dialog.send.message">Escriba el mensaje que desea enviar</string>
+    <string name="dialog.button.message">Enviar mensaje</string>
 </resources>

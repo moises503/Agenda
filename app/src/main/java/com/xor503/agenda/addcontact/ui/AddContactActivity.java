@@ -138,7 +138,7 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
     }
 
     private void showOptions() {
-        final CharSequence[] option = {"Tomar foto", "Elegir de galeria", "Cancelar"};
+        final CharSequence[] option = {"Tomar foto", "Elegir de galeria"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(AddContactActivity.this);
         builder.setTitle("Eleige una opción");
         builder.setItems(option, new DialogInterface.OnClickListener() {
@@ -150,12 +150,15 @@ public class AddContactActivity extends AppCompatActivity implements AddContactV
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(intent.createChooser(intent, "Selecciona app de imagen"), SELECT_PICTURE);
-                }else {
-                    dialog.dismiss();
                 }
             }
         });
-
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         builder.show();
     }
 

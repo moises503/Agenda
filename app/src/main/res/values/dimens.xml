@@ -16,4 +16,6 @@
     <dimen name="size_fab">56dp</dimen>
     <dimen name="avatar_size">40dp</dimen>
     <dimen name="fab_elevation">16dp</dimen>
+    <dimen name="send.margin">10dp</dimen>
+    <dimen name="send.padding">24dp</dimen>
 </resources>

@@ -46,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             android:id="@+id/showPhone"
                             android:text="@string/showcontact.message" />
@@ -58,6 +58,16 @@
                             android:src="@drawable/ic_phone_forwarded"
                             android:background="@android:color/transparent"
                             />
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/sendMessage"
+                            android:src="@drawable/ic_message"
+                            android:background="@android:color/transparent"
+                            android:layout_alignParentTop="true"
+                            android:layout_toStartOf="@+id/callPhone"
+                            android:layout_marginEnd="12dp" />
                     </RelativeLayout>
 
                 </LinearLayout>

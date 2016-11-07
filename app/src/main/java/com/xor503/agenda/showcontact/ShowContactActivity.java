@@ -12,9 +12,15 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -148,6 +154,17 @@ public class ShowContactActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.sendMessage)
+    public void onMessageSended(){
+        sendSmsToContact();
+    }
+
+    private void sendSmsToContact() {
+        Uri smsUri = Uri.parse("smsto:+521" + showPhone.getText().toString());
+        Intent intent = new Intent(Intent.ACTION_SENDTO, smsUri);
+        startActivity(intent);
+    }
+
 
     public void setImageParalax(String path) {
         Glide.with(this).load(path).centerCrop().into(imageParalax);
@@ -156,4 +173,6 @@ public class ShowContactActivity extends AppCompatActivity {
     public void setImageParalax(Uri path) {
         Glide.with(this).load(path).centerCrop().into(imageParalax);
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.xor503.agenda.contactlist.ui.adapters;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,6 +105,15 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 @Override
                 public void onClick(View v) {
                     onItemClickListener.onShowClick(currentContact);
+                }
+            });
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onItemClickListener.onDeleteClick(currentContact);
+                    Log.e("onLongClick","Se ha presionado");
+                    return false;
                 }
             });
         }

@@ -1,7 +1,9 @@
 package com.xor503.agenda.contactlist.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -115,7 +117,22 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
 
     @Override
     public void onDeleteClick(Contact contact) {
-        presenter.removeContact(contact);
+        final Contact c = contact;
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("¿Deseas eliminar realmente a "+contact.getName()+" ?").setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.removeContact(c);
+            }
+        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     @OnClick(R.id.fabAddContact)
