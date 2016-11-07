@@ -11,7 +11,7 @@
     <!-- Image circular de la librería externa -->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/showAvatar"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_person"
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
         android:layout_marginRight="16dp" />
