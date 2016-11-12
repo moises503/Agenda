@@ -98,6 +98,7 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
     @Override
     public void contactUpdated() {
         adapter.notifyDataSetChanged();
+        //
     }
 
     @Override
